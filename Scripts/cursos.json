@@ -1,0 +1,520 @@
+[
+	{
+		"type": "fileCurses",
+		"data": [
+			{
+				"curso": "Social Humanistica 2",
+				"codigo": "029",
+				"abreviatura": "Humanistica 2",
+				"area": 1,
+				"semestre": 2,
+				"asignados": 50,
+				"catedraticos": [
+					{
+						"id": "32"
+					}
+				]
+			},
+			{
+				"curso": "Matemática Básica 2",
+				"codigo": "170",
+				"abreviatura": "Básica 2",
+				"area": 1,
+				"semestre": 2,
+				"asignados": 75,
+				"catedraticos": [
+					{
+						"id": "16"
+					},
+					{
+						"id": "10"
+					}
+				]
+			},
+			{
+				"curso": "Orientación y Liderazgo",
+				"codigo": "2666",
+				"abreviatura": "Orientación",
+				"area": 1,
+				"semestre": 1,
+				"asignados": 40
+			},
+			{
+				"curso": "Técnicas de investigación y estudio",
+				"codigo": "2667",
+				"abreviatura": "Técnicas de estudio",
+				"area": 1,
+				"semestre": 2,
+				"asignados": 40,
+				"catedraticos": [
+					{
+						"id": 24
+					},
+					{
+						"id": 25
+					}
+				]
+			},
+			{
+				"curso": "Fisica Básica",
+				"codigo": "072",
+				"abreviatura": "Fisica Básica",
+				"area": 1,
+				"semestre": 2,
+				"asignados": 75
+			},
+			{
+				"curso": "Deportes 2",
+				"codigo": "178",
+				"abreviatura": "Deportes 2",
+				"area": 1,
+				"semestre": 2,
+				"asignados": 55,
+				"salon": "Cancha"
+			},
+			{
+				"curso": "Estadistica 1",
+				"codigo": "949",
+				"abreviatura": "Estadistica 1",
+				"area": 2,
+				"semestre": 4,
+				"asignados": 23,
+				"catedraticos": [
+					{
+						"id": 19
+					}
+				]
+			},
+			{
+				"curso": "Lenguajes Formales y de Programación 1",
+				"codigo": "2796",
+				"abreviatura": "Lenguajes 1",
+				"area": 2,
+				"semestre": 4,
+				"asignados": 25,
+				"catedraticos": [
+					{
+						"id": 37
+					}
+				]
+			},
+			{
+				"curso": "Matemática de Cómputo 2",
+				"codigo": "2799",
+				"abreviatura": "Mate Computo 2",
+				"area": 2,
+				"semestre": 4,
+				"asignados": 18
+			},
+			{
+				"curso": "Introducción a la Programación y Computación 1",
+				"codigo": "2800",
+				"abreviatura": "IPC2",
+				"area": 2,
+				"semestre": 4,
+				"asignados": 40,
+				"catedraticos": [
+					{
+						"id": 1
+					}
+				]
+			},
+			{
+				"curso": "Lógica",
+				"codigo": "085",
+				"abreviatura": "Lógica",
+				"area": 1,
+				"semestre": 4,
+				"asignados": 40,
+				"catedraticos": [
+					{
+						"id": 32
+					}
+				]
+			},
+			{
+				"curso": "Matemática Intermedia 2",
+				"codigo": "291",
+				"abreviatura": "Inter 2",
+				"area": 1,
+				"semestre": 4,
+				"asignados": 60
+			},
+			{
+				"curso": "Matemática Intermedia 3",
+				"codigo": "292",
+				"abreviatura": "Inter 3",
+				"area": 1,
+				"semestre": 4,
+				"asignados": 45
+			},
+			{
+				"curso": "Fisica 2",
+				"codigo": "147",
+				"abreviatura": "Fisica 2",
+				"area": 1,
+				"semestre": 4,
+				"asignados": 55,
+				"catedraticos": [
+					{
+						"id": 23
+					}
+				]
+			},
+			{
+				"curso": "Teoria de Sistemas 1",
+				"codigo": "2808",
+				"abreviatura": "TS1",
+				"area": 2,
+				"semestre": 6,
+				"asignados": 20,
+				"catedraticos": [
+					{
+						"id": 2
+					}
+				]
+			},
+			{
+				"curso": "Investigación de Operaciones 1",
+				"codigo": "685",
+				"abreviatura": "IO1",
+				"area": 2,
+				"semestre": 6,
+				"asignados": 19
+			},
+			{
+				"curso": "Economia",
+				"codigo": "2809",
+				"abreviatura": "Economia",
+				"area": 2,
+				"semestre": 6,
+				"asignados": 20,
+				"catedraticos": [
+					{
+						"id": 31
+					}
+				]
+			},
+			{
+				"curso": "Organización de Lenguajes y Compiladores 2",
+				"codigo": "2810",
+				"abreviatura": "Compi 2",
+				"area": 2,
+				"semestre": 6,
+				"asignados": 40,
+				"catedraticos": [
+					{
+						"id": 1
+					}
+				]
+			},
+			{
+				"curso": "Arquitectura de Computadores y Ensambladores 1",
+				"codigo": "2811",
+				"abreviatura": "Arqui 1",
+				"area": 2,
+				"semestre": 6,
+				"asignados": 20,
+				"catedraticos": [
+					{
+						"id": 4
+					}
+				]
+			},
+			{
+				"curso": "Manejo e implementación de archivos",
+				"codigo": "2812",
+				"abreviatura": "Archivos",
+				"area": 2,
+				"semestre": 6,
+				"asignados": 20,
+				"catedraticos": [
+					{
+						"id": 5
+					}
+				]
+			},
+			{
+				"curso": "Práctica Inicial TI",
+				"codigo": "2807",
+				"abreviatura": "Practica Inicial",
+				"area": 2,
+				"semestre": 6,
+				"asignados": 20,
+				"catedraticos": [
+					{
+						"id": 5
+					}
+				]
+			},
+			{
+				"curso": "Matemática Aplicada 4",
+				"codigo": "905",
+				"abreviatura": "Aplicada 4",
+				"area": 1,
+				"semestre": 6,
+				"asignados": 30
+			},
+			{
+				"curso": "Matemática Aplicada 2",
+				"codigo": "904",
+				"abreviatura": "Aplicada 2",
+				"area": 1,
+				"semestre": 6,
+				"asignados": 30
+			},
+			{
+				"curso": "Ingenieria Electrica 1",
+				"codigo": "670",
+				"abreviatura": "Electrica 1",
+				"area": 1,
+				"semestre": 6,
+				"asignados": 19,
+				"catedraticos": [
+					{
+						"id": 23
+					}
+				]
+			},
+			{
+				"curso": "Contabilidad 2",
+				"codigo": "779",
+				"abreviatura": "Conta 2",
+				"area": 1,
+				"semestre": 6,
+				"asignados": 27,
+				"catedraticos": [
+					{
+						"id": 38
+					}
+				]
+			},
+			{
+				"curso": "Gestión de Desastres",
+				"codigo": "2670",
+				"abreviatura": "Gestion",
+				"area": 1,
+				"semestre": 6,
+				"asignados": 15
+			},
+			{
+				"curso": "Sistemas Operativos 2",
+				"codigo": "2819",
+				"abreviatura": "SOPES2",
+				"area": 2,
+				"semestre": 8,
+				"asignados": 20,
+				"catedraticos": [
+					{
+						"id": 31
+					},
+					{
+						"id": 3
+					}
+				]
+			},
+			{
+				"curso": "Redes de Computadoras 2",
+				"codigo": "2820",
+				"abreviatura": "Redes 2",
+				"area": 2,
+				"semestre": 8,
+				"asignados": 20,
+				"catedraticos": [
+					{
+						"id": 3
+					}
+				]
+			},
+			{
+				"curso": "Sistemas de bases de datos 2",
+				"codigo": "2821",
+				"abreviatura": "Bases 2",
+				"area": 2,
+				"semestre": 8,
+				"asignados": 20,
+				"catedraticos": [
+					{
+						"id": 6
+					},
+					{
+						"id": 2
+					}
+				]
+			},
+			{
+				"curso": "Análisis y Diseño de Sistemas 1",
+				"codigo": "2822",
+				"abreviatura": "Análisis 1",
+				"area": 2,
+				"semestre": 8,
+				"asignados": 20,
+				"catedraticos": [
+					{
+						"id": 1
+					}
+				]
+			},
+			{
+				"curso": "Seminario de Sistemas 1",
+				"codigo": "2823",
+				"abreviatura": "SS1",
+				"area": 2,
+				"semestre": 8,
+				"asignados": 20,
+				"catedraticos": [
+					{
+						"id": 2
+					}
+				]
+			},
+			{
+				"curso": "Ingenieria Economica 1",
+				"codigo": "690",
+				"abreviatura": "Economica 1",
+				"area": 1,
+				"semestre": 8,
+				"asignados": 30,
+				"catedraticos": [
+					{
+						"id": 19
+					}
+				]
+			},
+			{
+				"curso": "Sistemas Organizacionales y Gerenciales 2",
+				"codigo": "2834",
+				"abreviatura": "Gerenciales 2",
+				"area": 2,
+				"semestre": 10,
+				"asignados": 15,
+				"catedraticos": [
+					{
+						"id": 31
+					}
+				]
+			},
+			{
+				"curso": "Modelación y Simulación 2",
+				"codigo": "2835",
+				"abreviatura": "Modela 2",
+				"area": 2,
+				"semestre": 10,
+				"asignados": 27,
+				"catedraticos": [
+					{
+						"id": 2
+					}
+				]
+			},
+			{
+				"curso": "Inteligencia Artificial 2",
+				"codigo": "2838",
+				"abreviatura": "Inteligencia 2",
+				"area": 2,
+				"semestre": 10,
+				"asignados": 15
+			},
+			{
+				"curso": "Redes de Nueva Generacion",
+				"codigo": "2839",
+				"abreviatura": "Redes nueva",
+				"area": 2,
+				"semestre": 10,
+				"asignados": 13
+			},
+			{
+				"curso": "Software Avanzado",
+				"codigo": "2836",
+				"abreviatura": "Software Avanzado",
+				"area": 2,
+				"semestre": 10,
+				"asignados": 25,
+				"catedraticos": [
+					{
+						"id": 1
+					}
+				]
+			},
+			{
+				"curso": "Sistemas Aplicados 2",
+				"codigo": "2840",
+				"abreviatura": "Sistemas Aplicados 2",
+				"area": 2,
+				"semestre": 10,
+				"asignados": 10
+			},
+			{
+				"curso": "Auditoria de Proyectos de Software",
+				"codigo": "2841",
+				"abreviatura": "Auditoria",
+				"area": 2,
+				"semestre": 10,
+				"asignados": 11
+			},
+			{
+				"curso": "Seminario de Investigación EPS",
+				"codigo": "2842",
+				"abreviatura": "Seminario EPS",
+				"area": 2,
+				"semestre": 10,
+				"asignados": 10
+			},
+			{
+				"curso": "Planeamiento",
+				"codigo": "912",
+				"abreviatura": "Planea",
+				"area": 2,
+				"semestre": 10,
+				"asignados": 9
+			},
+			{
+				"curso": "Preparación y Evaluación de Proyectos 1",
+				"codigo": "909",
+				"abreviatura": "Preparacion",
+				"area": 2,
+				"semestre": 10,
+				"asignados": 9
+			},
+			{
+				"curso": "Seminario de Investigación",
+				"codigo": "2837",
+				"abreviatura": "Seminario Inves",
+				"area": 2,
+				"semestre": 10,
+				"asignados": 25,
+				"catedraticos": [
+					{
+						"id": 2
+					}
+				]
+			},
+			{
+				"curso": "Quimica 1",
+				"codigo": "216",
+				"abreviatura": "Quimica 1",
+				"area": 1,
+				"semestre": 1,
+				"asignados": 56,
+				"catedraticos": [
+					{
+						"id": 33
+					}
+				]
+			},
+			{
+				"curso": "Tecnica Complementaria 1",
+				"codigo": "119",
+				"abreviatura": "Tecnica 1",
+				"area": 1,
+				"semestre": 1,
+				"asignados": 46,
+				"catedraticos": [
+					{
+						"id": 35
+					}
+				]
+			}
+		]
+	}
+]

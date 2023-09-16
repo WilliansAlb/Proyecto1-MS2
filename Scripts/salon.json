@@ -1,0 +1,126 @@
+[
+	{
+		"type":"fileSalons",
+		"data":[
+			{
+				"id":1,
+				"nombre":"Aula 1",
+				"capacidad":30,
+				"area":2
+			},
+			{
+				"id":2,
+				"nombre":"Aula 2",
+				"capacidad":45,
+				"area":1
+			},
+			{
+				"id":3,
+				"nombre":"Aula 3",
+				"capacidad":40,
+				"area":1
+			},
+			{
+				"id":4,
+				"nombre":"Aula 4",
+				"capacidad":45,
+				"area":1
+			},
+			{
+				"id":5,
+				"nombre":"Aula 5",
+				"capacidad":50,
+				"area":1
+			},
+			{
+				"id":6,
+				"nombre":"Aula 6",
+				"capacidad":30,
+				"area":1
+			},
+			{
+				"id":7,
+				"nombre":"Aula Magna",
+				"capacidad":100,
+				"area":1
+			},
+			{
+				"id":8,
+				"nombre":"Salón de Proyecciones",
+				"capacidad":40,
+				"area":2
+			},
+			{
+				"id":9,
+				"nombre":"Aula TICs",
+				"capacidad":30,
+				"area":2
+			},
+			{
+				"id":10,
+				"nombre":"Laboratorio de Aguas",
+				"capacidad":35,
+				"area":3
+			},
+			{
+				"id":11,
+				"nombre":"Laboratorio Electrica",
+				"capacidad":35,
+				"area":5
+			},
+			{
+				"id":12,
+				"nombre":"Salon de Dibujo",
+				"capacidad":80,
+				"area":1,
+				"cursos":[
+					{
+						"codigo":"119"
+					}
+				]
+			},
+			{
+				"id":13,
+				"nombre":"Laboratorio de Fisica",
+				"capacidad":60,
+				"area":1,
+				"cursos":[
+					{
+						"codigo":"072"
+					},
+					{
+						"codigo":"147"
+					}
+				]
+			},
+			{
+				"id":14,
+				"nombre":"Laboratorio de Industrial",
+				"capacidad":50,
+				"area":5
+			},
+			{
+				"id":15,
+				"nombre":"Cancha",
+				"capacidad":120,
+				"area":1,
+				"cursos":[
+					{
+						"codigo":"178"
+					}
+				]
+			},
+			{
+				"id":16,
+				"nombre":"Laboratorio de Quimica",
+				"capacidad":40,
+				"area":1,
+				"cursos":[
+					{
+						"codigo":"216"
+					}
+				]
+			}
+		]
+	}
+]

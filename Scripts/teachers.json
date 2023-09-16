@@ -1,0 +1,295 @@
+[
+	{
+		"type": "fileTeachers",
+		"data": [
+			{
+				"id": 1,
+				"nombre": "Jose Moises Granados",
+				"alter": "Moises",
+				"entrada": 1400,
+				"salida": 2000,
+				"area": 2
+			},
+			{
+				"id": 2,
+				"nombre": "Luis Pedro Dominguez",
+				"alter": "Pedro",
+				"entrada": 1400,
+				"salida": 2100,
+				"area": 2
+			},
+			{
+				"id": 3,
+				"nombre": "Francisco Rojas",
+				"alter": "Rojas",
+				"entrada": 1400,
+				"salida": 2100,
+				"area": 2
+			},
+			{
+				"id": 4,
+				"nombre": "Mauricio Lopez",
+				"alter": "Mauricio",
+				"entrada": 1300,
+				"salida": 1900,
+				"area": 2
+			},
+			{
+				"id": 5,
+				"nombre": "Christian Lopez",
+				"alter": "Christian",
+				"entrada": 1300,
+				"salida": 1900,
+				"area": 2
+			},
+			{
+				"id": 6,
+				"nombre": "Max Cerna",
+				"alter": "Max",
+				"entrada": 1600,
+				"salida": 1900,
+				"area": 2
+			},
+			{
+				"id": 7,
+				"nombre": "Claudia Moran",
+				"alter": "Claudia",
+				"entrada": 1400,
+				"salida": 2000,
+				"area": 3
+			},
+			{
+				"id": 8,
+				"nombre": "Rene Orneliz",
+				"alter": "Orneliz",
+				"entrada": 1500,
+				"salida": 1800,
+				"area": 2
+			},
+			{
+				"id": 9,
+				"nombre": "Deiffy Morales",
+				"alter": "Deiffy",
+				"entrada": 1400,
+				"salida": 2100,
+				"area": 5
+			},
+			{
+				"id": 10,
+				"nombre": "Carlos Lam",
+				"alter": "Lam",
+				"entrada": 1300,
+				"salida": 1800,
+				"area": 1
+			},
+			{
+				"id": 11,
+				"nombre": "Cesar Grijalva",
+				"alter": "Grijalva",
+				"entrada": 1300,
+				"salida": 1800,
+				"area": 1
+			},
+			{
+				"id": 12,
+				"nombre": "Daniel Quintana",
+				"alter": "Quintana",
+				"entrada": 1300,
+				"salida": 2000,
+				"area": 1
+			},
+			{
+				"id": 13,
+				"nombre": "Karin Rivas",
+				"alter": "Karin",
+				"entrada": 1400,
+				"salida": 2100,
+				"area": 5
+			},
+			{
+				"id": 14,
+				"nombre": "Coralia",
+				"alter": "Coralia",
+				"entrada": 1400,
+				"salida": 1800,
+				"area": 5
+			},
+			{
+				"id": 15,
+				"nombre": "Eddie Flores",
+				"alter": "Flores",
+				"entrada": 1400,
+				"salida": 2100,
+				"area": 1
+			},
+			{
+				"id": 16,
+				"nombre": "Jorge Rivera",
+				"alter": "Rivera",
+				"entrada": 1400,
+				"salida": 1900,
+				"area": 1
+			},
+			{
+				"id": 17,
+				"nombre": "Humberto Hernandez",
+				"alter": "Humberto",
+				"entrada": 1300,
+				"salida": 2100,
+				"area": 3
+			},
+			{
+				"id": 18,
+				"nombre": "Alicia Armas",
+				"alter": "Alicia",
+				"entrada": 1300,
+				"salida": 1900,
+				"area": 5
+			},
+			{
+				"id": 19,
+				"nombre": "Santiago Pineda",
+				"alter": "Pineda",
+				"entrada": 1400,
+				"salida": 2000,
+				"area": 1
+			},
+			{
+				"id": 20,
+				"nombre": "Diego Orozco",
+				"alter": "Diego",
+				"entrada": 1400,
+				"salida": 2000,
+				"area": 2
+			},
+			{
+				"id": 21,
+				"nombre": "Nery Perez",
+				"alter": "Nery",
+				"entrada": 1400,
+				"salida": 2100,
+				"area": 3
+			},
+			{
+				"id": 22,
+				"nombre": "Alvaro Flores",
+				"alter": "Alvaro",
+				"entrada": 1400,
+				"salida": 1900,
+				"area": 3
+			},
+			{
+				"id": 23,
+				"nombre": "Ernesto Aguilar",
+				"alter": "Neto",
+				"entrada": 1300,
+				"salida": 2000,
+				"area": 1
+			},
+			{
+				"id": 24,
+				"nombre": "Ariel Perez",
+				"alter": "Ariel",
+				"entrada": 1400,
+				"salida": 2100,
+				"area": 1
+			},
+			{
+				"id": 25,
+				"nombre": "Alvaro Ordonez",
+				"alter": "Ordonez",
+				"entrada": 1300,
+				"salida": 1900,
+				"area": 1
+			},
+			{
+				"id": 26,
+				"nombre": "Bruno Coyoy",
+				"alter": "Coyoy",
+				"entrada": 1500,
+				"salida": 2100,
+				"area": 3
+			},
+			{
+				"id": 27,
+				"nombre": "Juan Jose Maldonado",
+				"alter": "Maldonado",
+				"entrada": 1300,
+				"salida": 2000,
+				"area": 1
+			},
+			{
+				"id": 28,
+				"nombre": "Hector Xicara",
+				"alter": "Xicara",
+				"entrada": 1400,
+				"salida": 2100,
+				"area": 3
+			},
+			{
+				"id": 29,
+				"nombre": "Maria Rene",
+				"alter": "Maria Rene",
+				"entrada": 1400,
+				"salida": 2100,
+				"area": 5
+			},
+			{
+				"id": 30,
+				"nombre": "Daniel Velasquez",
+				"alter": "Daniel",
+				"entrada": 1400,
+				"salida": 2000,
+				"area": 3
+			},
+			{
+				"id": 31,
+				"nombre": "Otto Soto",
+				"alter": "Soto",
+				"entrada": 1400,
+				"salida": 2000,
+				"area": 2
+			},
+			{
+				"id": 32,
+				"nombre": "Jorge Aparicio",
+				"alter": "Aparicio",
+				"entrada": 1400,
+				"salida": 2000,
+				"area": 1
+			},
+			{
+				"id": 33,
+				"nombre": "Olimpia Martinez",
+				"alter": "Olimpia",
+				"entrada": 1400,
+				"salida": 2000,
+				"area": 1
+			},
+			{
+				"id": 34,
+				"nombre": "Fernando Cajas",
+				"alter": "Cajas",
+				"entrada": 1400,
+				"salida": 1900,
+				"area": 3
+			},
+			{
+				"id": 35,
+				"nombre": "Luis Aballi",
+				"alter": "Aballi",
+				"entrada": 1300,
+				"salida": 1800,
+				"area": 1
+			},
+			{
+				"id": 36,
+				"nombre": "Jose Nimatuj",
+				"alter": "Nimatuj",
+				"entrada": 1400,
+				"salida": 2100,
+				"area": 5
+			}
+		]
+	}
+]
