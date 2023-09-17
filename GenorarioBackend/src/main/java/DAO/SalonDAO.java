@@ -4,8 +4,11 @@
  */
 package DAO;
 
+import DBObject.TotalAreaSalon;
+import DBObject.TotalAreaTeacher;
 import JSONObjects.AreaJSON;
 import JSONObjects.SalonJSON;
+import Model.SalonModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -84,5 +87,35 @@ public class SalonDAO {
             Logger.getLogger(AreaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return areas;
+    }
+     
+     public ArrayList<SalonModel> getSalonListModel(Connection cn) {
+        ArrayList<SalonModel> areas = new ArrayList<>();
+        try {
+            Statement statement = cn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT id_salon, name_salon, capacity, area_salon FROM salon");
+            while (resultSet.next()) {
+                areas.add(new SalonModel(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3), resultSet.getInt(4)));
+            }
+            return areas;
+        } catch (SQLException ex) {
+            Logger.getLogger(SalonDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return areas;
+    }
+     
+     public ArrayList<TotalAreaSalon> getTotalSalons(Connection cn){
+        ArrayList<TotalAreaSalon> total = new ArrayList<>();
+        try {
+            Statement statement = cn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT  (SELECT COUNT(*) FROM salon sa WHERE sa.area_salon = a.id_area)  AS total, a.id_area AS area_salon FROM area a LEFT JOIN salon s ON a.id_area = s.area_salon GROUP BY a.id_area;");
+            while (resultSet.next()) {
+                total.add(new TotalAreaSalon(resultSet.getInt(1), resultSet.getInt(2)));
+            }
+            return total;
+        } catch (SQLException ex) {
+            Logger.getLogger(AreaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
     }
 }

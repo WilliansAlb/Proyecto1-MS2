@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import DBObject.CurseForWeight;
 import JSONObjects.CurseJSON;
 import JSONObjects.SalonJSON;
 import JSONObjects.TeacherJSON;
@@ -84,7 +85,40 @@ public class CurseDAO {
             }
             return curses;
         } catch (SQLException ex) {
-            Logger.getLogger(AreaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CurseDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return curses;
+    }
+    
+    public ArrayList<Integer> getCurseTeacherAssign(Connection cn, String code_curse) {
+        ArrayList<Integer> teachers_id = new ArrayList<>();
+        try {
+            Statement statement = cn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT teacher_assigned FROM TeacherAssigned WHERE curse_assigned = "+code_curse);
+            while (resultSet.next()) {
+                teachers_id.add(resultSet.getInt(1));
+            }
+            return teachers_id;
+        } catch (SQLException ex) {
+            Logger.getLogger(CurseDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return teachers_id;
+    }
+    
+    public ArrayList<CurseForWeight> getDataCurses(Connection cn){
+        ArrayList<CurseForWeight> curses = new ArrayList<>();
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT c.*, "
+                    + "(SELECT COUNT(*) FROM teacherassigned ta WHERE ta.curse_assigned = c.code_curse) AS count_teachers, "
+                    + "(SELECT COUNT(*) FROM salonassigned ta WHERE ta.curse_assigned = c.code_curse) AS count_salons " 
+                    + "FROM Curse c;");
+            while (rs.next()){
+                curses.add(new CurseForWeight(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getString(6),rs.getInt(7),rs.getInt(8)));
+            }
+            return curses;
+        } catch (SQLException ex){
+            Logger.getLogger(CurseDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return curses;
     }
