@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ModelTest;
+package Model;
 
 import DAO.ConnectionDAO;
 import DAO.CurseDAO;
@@ -14,11 +14,6 @@ import DBObject.CurseForWeight;
 import DBObject.Parameter;
 import DBObject.TotalAreaSalon;
 import DBObject.TotalAreaTeacher;
-import Model.AssignModel;
-import Model.PeriodDisponibility;
-import Model.PeriodModel;
-import Model.SalonModel;
-import Model.TeacherModel;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,18 +21,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
-import org.junit.Test;
 
 /**
  *
  * @author willi
  */
-public class GenerateScheduleTest {
+public class GeneratorModel {
+     ArrayList<PeriodModel> periodList;
 
-    ArrayList<PeriodModel> periodList;
-
-    @Test
-    public void generateWeights() {
+    public ArrayList<SalonModel> generateWeights() {
         ConnectionDAO con = new ConnectionDAO();
         Connection cn = con.getConnection();
         CurseDAO c = new CurseDAO();
@@ -108,9 +100,7 @@ public class GenerateScheduleTest {
                 .collect(Collectors.groupingBy(SalonModel::getArea_salon));
         Map<Integer, List<TeacherModel>> teachersForArea = teacherList.stream()
                 .collect(Collectors.groupingBy(TeacherModel::getArea_teacher));
-        ArrayList<AssignModel> listAssigned = new ArrayList<>();
-        
-        
+      
         for (CurseForWeight curse : curses) {
             System.out.println("----------------------------------------------");
             System.out.println("Code: " + curse.getCode_curse() + "\tName: " + curse.getName_curse() + "\tSemester: " + curse.getSemester_curse());
@@ -121,11 +111,11 @@ public class GenerateScheduleTest {
                 assignedTeacher(curse, an, teachersForArea, c, cn);
                 System.out.println(an.getMessage() + " en el periodo " + an.getPeriod().getId_period() + " - " + an.getPeriod().getEnd_period());
                 assignedSalon(curse, an, salonsForArea, sa, cn, salonList);
-                listAssigned.add(an);
             } else {
 
             }
         }
+        return salonList;
     }
 
     public void assignedSalon(CurseForWeight curse, AssignModel an,
@@ -255,5 +245,4 @@ public class GenerateScheduleTest {
         }
         return null;
     }
-
 }

@@ -11,6 +11,9 @@ import DAO.SalonDAO;
 import DBObject.Parameter;
 import JSONObjects.CurseJSON;
 import JSONObjects.SalonJSON;
+import Model.AssignModel;
+import Model.GeneratorModel;
+import Model.SalonModel;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -81,6 +84,10 @@ public class provider extends HttpServlet {
             responseJson.add("curses", gson.toJsonTree(curses.getCursesNameCode(cn), new TypeToken<ArrayList<CurseJSON>>() {
             }.getType()));
             con.closeConnection(cn);
+        } else if (type.equals("schedule")){
+            GeneratorModel g = new GeneratorModel();
+            responseJson.add("schedule", gson.toJsonTree(g.generateWeights(), new TypeToken<ArrayList<SalonModel>>() {
+            }.getType()));
         }
 
         // Send a JSON response back to the client
