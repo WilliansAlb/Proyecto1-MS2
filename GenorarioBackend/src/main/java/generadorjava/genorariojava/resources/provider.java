@@ -8,7 +8,9 @@ import DAO.ConnectionDAO;
 import DAO.CurseDAO;
 import DAO.ParameterDAO;
 import DAO.SalonDAO;
+import DAO.ScheduleDAO;
 import DBObject.Parameter;
+import DBObject.ScheduleDBO;
 import JSONObjects.CurseJSON;
 import JSONObjects.SalonJSON;
 import Model.AssignModel;
@@ -31,7 +33,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author willi
  */
 public class provider extends HttpServlet {
+
     Gson gson = new Gson();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,7 +53,7 @@ public class provider extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet provider</title>");            
+            out.println("<title>Servlet provider</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet provider at " + request.getContextPath() + "</h1>");
@@ -84,9 +88,33 @@ public class provider extends HttpServlet {
             responseJson.add("curses", gson.toJsonTree(curses.getCursesNameCode(cn), new TypeToken<ArrayList<CurseJSON>>() {
             }.getType()));
             con.closeConnection(cn);
-        } else if (type.equals("schedule")){
+        } else if (type.equals("schedule")) {
             GeneratorModel g = new GeneratorModel();
-            responseJson.add("schedule", gson.toJsonTree(g.generateWeights(), new TypeToken<ArrayList<SalonModel>>() {
+            ParameterDAO parameters = new ParameterDAO();
+            if (request.getParameter("id") == null) {
+                responseJson.add("schedule", gson.toJsonTree(g.generateWeights(0), new TypeToken<ArrayList<SalonModel>>() {
+                }.getType()));
+                Connection cn = con.getConnection();
+                responseJson.add("parameters", gson.toJsonTree(parameters.getParameters(cn), new TypeToken<ArrayList<Parameter>>() {
+                }.getType()));
+                con.closeConnection(cn);
+            } else {
+                int schedule = Integer.parseInt(request.getParameter("id"));
+                Connection cn = con.getConnection();
+                ScheduleDAO sch = new ScheduleDAO();
+                responseJson.add("schedule", gson.toJsonTree(g.generatedSchedule(schedule), new TypeToken<ArrayList<SalonModel>>() {
+                }.getType()));
+                responseJson.add("dataSchedule", gson.toJsonTree(sch.getSchedule(cn, schedule), new TypeToken<ScheduleDBO>() {
+                }.getType()));
+                responseJson.add("parameters", gson.toJsonTree(parameters.getParametersUsed(cn,schedule), new TypeToken<ArrayList<Parameter>>() {
+                }.getType()));
+                con.closeConnection(cn);
+            }
+            responseJson.addProperty("efficienty", g.efficienty);
+        } else if (type.equals("schedules")) {
+            Connection cn = con.getConnection();
+            ScheduleDAO sch = new ScheduleDAO();
+            responseJson.add("schedules", gson.toJsonTree(sch.getSchedules(cn), new TypeToken<ArrayList<ScheduleDBO>>() {
             }.getType()));
         }
 

@@ -6,10 +6,14 @@ package Model;
 
 import DAO.ConnectionDAO;
 import DAO.CurseDAO;
+import DAO.GenerateDAO;
 import DAO.ParameterDAO;
 import DAO.PeriodDAO;
 import DAO.SalonDAO;
+import DAO.ScheduleDAO;
 import DAO.TeacherDAO;
+import DAO.WeightDAO;
+import DBObject.AssignedCurseDBO;
 import DBObject.CurseForWeight;
 import DBObject.Parameter;
 import DBObject.TotalAreaSalon;
@@ -27,9 +31,12 @@ import java.util.stream.Collectors;
  * @author willi
  */
 public class GeneratorModel {
-     ArrayList<PeriodModel> periodList;
 
-    public ArrayList<SalonModel> generateWeights() {
+    ArrayList<PeriodModel> periodList;
+    ArrayList<AreaModel> semesters;
+    public double efficienty = 0.00;
+
+    public ArrayList<SalonModel> generateWeights(int generateSchedule) {
         ConnectionDAO con = new ConnectionDAO();
         Connection cn = con.getConnection();
         CurseDAO c = new CurseDAO();
@@ -37,10 +44,20 @@ public class GeneratorModel {
         TeacherDAO ta = new TeacherDAO();
         SalonDAO sa = new SalonDAO();
         PeriodDAO pa = new PeriodDAO();
+        WeightDAO w = new WeightDAO();
         ArrayList<CurseForWeight> curses = c.getDataCurses(cn);
         ArrayList<Parameter> parameters = p.getParameters(cn);
         ArrayList<TotalAreaTeacher> totals = ta.getTotalTeachers(cn);
         ArrayList<TotalAreaSalon> totalSalon = sa.getTotalSalons(cn);
+        semesters = new ArrayList<>();
+        for (int i = 0; i < totals.size(); i++) {
+            semesters.add(new AreaModel());
+        }
+        if (generateSchedule != 0) {
+            for (int i = 2; i < 11; i++) {
+                p.insertParameterUsed(cn, parameters.get(i), generateSchedule);
+            }
+        }
         int priority_selected = 1;
         for (CurseForWeight curse : curses) {
             double weight = 0;
@@ -100,8 +117,11 @@ public class GeneratorModel {
                 .collect(Collectors.groupingBy(SalonModel::getArea_salon));
         Map<Integer, List<TeacherModel>> teachersForArea = teacherList.stream()
                 .collect(Collectors.groupingBy(TeacherModel::getArea_teacher));
-      
+
         for (CurseForWeight curse : curses) {
+            if (generateSchedule != 0) {
+                w.insertWeight(cn, curse.getCode_curse(), generateSchedule, (int) curse.getWeight());
+            }
             System.out.println("----------------------------------------------");
             System.out.println("Code: " + curse.getCode_curse() + "\tName: " + curse.getName_curse() + "\tSemester: " + curse.getSemester_curse());
             System.out.println("\t\tWeight: " + curse.getWeight());
@@ -110,42 +130,139 @@ public class GeneratorModel {
             if (priority_selected == 1) {
                 assignedTeacher(curse, an, teachersForArea, c, cn);
                 System.out.println(an.getMessage() + " en el periodo " + an.getPeriod().getId_period() + " - " + an.getPeriod().getEnd_period());
-                assignedSalon(curse, an, salonsForArea, sa, cn, salonList);
+                assignedSalon(curse, an, salonsForArea, c, cn, salonList);
+                if (generateSchedule != 0) {
+                    an.setSchedule(generateSchedule);
+                    c.insertAssignedCurse(cn, an);
+                }
             } else {
 
             }
+            switch (an.getStatus()) {
+                case Status.NOASSIGN:
+                    efficienty += 0;
+                    break;
+                case Status.OK:
+                    efficienty += 1;
+                    break;
+                case Status.OVERLAP:
+                    efficienty += 0.3;
+                    break;
+                case Status.TEACHEROUT:
+                    efficienty += 0.65;
+                    break;
+                case Status.SALONDIFF:
+                    efficienty += 0.9;
+                    break;
+                case Status.CRASH:
+                    efficienty += 0.35;
+                    break;
+                case Status.OVERQUORUM:
+                    efficienty += 0.95;
+                    break;
+                default:
+                    efficienty += 0;
+                    break;
+            }
         }
+        efficienty = (efficienty / curses.size()) * 100;
+        if (generateSchedule != 0) {
+            GenerateDAO gdao = new GenerateDAO();
+            gdao.updateEfficiency(cn, generateSchedule, efficienty);
+        }
+        con.closeConnection(cn);
+        return salonList;
+    }
+
+    public ArrayList<SalonModel> generatedSchedule(int generateSchedule) {
+        ConnectionDAO con = new ConnectionDAO();
+        Connection cn = con.getConnection();
+        CurseDAO c = new CurseDAO();
+        ParameterDAO p = new ParameterDAO();
+        TeacherDAO ta = new TeacherDAO();
+        SalonDAO sa = new SalonDAO();
+        PeriodDAO pa = new PeriodDAO();
+        WeightDAO w = new WeightDAO();
+        ArrayList<SalonModel> salonList = sa.getSalonListModel(cn);
+        ArrayList<CurseForWeight> curses = c.getDataCurses(cn);
+        ArrayList<AssignedCurseDBO> assignedCurses = c.getAssignedCurses(cn, generateSchedule);
+        periodList = pa.getPeriodListModel(cn);
+        ArrayList<TeacherModel> teacherList = ta.getTeacherListModel(cn);
+        for (AssignedCurseDBO assignedCurse : assignedCurses) {
+            AssignModel an = new AssignModel();
+            for (CurseForWeight curse : curses) {
+                if (assignedCurse.getCurse_assign().equals(curse.getCode_curse())) {
+                    an.setCurse(curse);
+                    break;
+                }
+            }
+            for (PeriodModel period : periodList) {
+                if (period.getId_period() == assignedCurse.getPeriod_assign()) {
+                    an.setPeriod(period);
+                    break;
+                }
+            }
+            for (SalonModel salon : salonList) {
+                if (salon.getId_salon() == assignedCurse.getSalon_assign()) {
+                    salon.getAssign()[an.getPeriod().getId_period() - 1] = an;
+                    an.setSalon(salon.getId_salon());
+                    break;
+                }
+            }
+            an.setSchedule(generateSchedule);
+            an.setStatus(assignedCurse.getStatus_assign());
+            an.setMessage(assignedCurse.getMessage());
+            for (TeacherModel teacherModel : teacherList) {
+                if (assignedCurse.getTeacher_assign() == teacherModel.getId_teacher()) {
+                    an.setTeacher(teacherModel);
+                    break;
+                }
+            }
+        }
+        con.closeConnection(cn);
         return salonList;
     }
 
     public void assignedSalon(CurseForWeight curse, AssignModel an,
-            Map<Integer, List<SalonModel>> salonsForArea, SalonDAO sa, Connection cn, ArrayList<SalonModel> salonList) {
+            Map<Integer, List<SalonModel>> salonsForArea, CurseDAO c, Connection cn, ArrayList<SalonModel> salonList) {
         if (curse.getCount_salons() == 0) {
             List<SalonModel> selected = salonsForArea.get(curse.getArea_curse());
             SalonModel choosen = null;
             for (SalonModel salonModel : selected) {
-                if (salonModel.getAssign()[an.getPeriod().getId_period()-1] == null) {
-                    salonModel.getAssign()[an.getPeriod().getId_period()-1] = an;
+                if (salonModel.getAssign()[an.getPeriod().getId_period() - 1] == null) {
+                    salonModel.getAssign()[an.getPeriod().getId_period() - 1] = an;
                     choosen = salonModel;
+                    an.setSalon(choosen.getId_salon());
+                    if (salonModel.getCapacity() < an.getCurse().getAssigned_students()) {
+                        an.setStatus(Status.OVERQUORUM);
+                        an.setMessage(an.getMessage() + " - Se supera la capacidad del salon");
+                    }
                     break;
                 }
             }
             if (choosen == null) {
                 //an.setMessage(an.getMessage()+"\n No se le pudo asignar un salon al curso");
                 for (SalonModel salonModel : salonList) {
-                    if (salonModel.getAssign()[an.getPeriod().getId_period()-1] == null) {
-                        salonModel.getAssign()[an.getPeriod().getId_period()-1] = an;
+                    if (salonModel.getAssign()[an.getPeriod().getId_period() - 1] == null) {
+                        salonModel.getAssign()[an.getPeriod().getId_period() - 1] = an;
                         choosen = salonModel;
+                        an.setSalon(choosen.getId_salon());
+                        if (salonModel.getCapacity() < an.getCurse().getAssigned_students()) {
+                            an.setStatus(Status.OVERQUORUM);
+                            an.setMessage(an.getMessage() + " - Se supera la capacidad del salon");
+                        }
                         break;
                     }
                 }
                 if (choosen == null) {
                     System.out.println("\t\tSalon: INDENIFIDO pues no hay salones libres para ese periodo");
                     System.out.println(an.getTeacher().getCount_assigned());
+                    an.setStatus(Status.NOASSIGN);
                 } else {
                     if (choosen.getArea_salon() != 1) {
                         String[] areas = {"Sistemas", "Civil", "Mecanica", "Industrial", "Mecanica Industrial"};
                         System.out.println("\t\tSalon: " + choosen.getName_salon() + " se está usando un salon de " + areas[choosen.getArea_salon() - 1]);
+                        an.setStatus(Status.SALONDIFF);
                     } else {
                         System.out.println("\t\tSalon: " + choosen.getName_salon());
                     }
@@ -154,7 +271,24 @@ public class GeneratorModel {
                 System.out.println("\t\tSalon: " + choosen.getName_salon());
             }
         } else {
-
+            ArrayList<Integer> salons_id = c.getCurseSalonAssign(cn, curse.getCode_curse());
+            for (SalonModel salonModel : salonList) {
+                if (salonModel.getId_salon() == salons_id.get(0)) {
+                    if (salonModel.getAssign()[an.getPeriod().getId_period() - 1] != null) {
+                        AssignModel previous = salonModel.getAssign()[an.getPeriod().getId_period() - 1];
+                        previous.setStatus(Status.NOASSIGN);
+                        an.setStatus(Status.CRASH);
+                        an.setMessage(an.getMessage() + " - CHOQUE: el curso " + previous.getCurse().getName_curse() + " chocó con este salon en el mismo periodo. Solo se asigno este por tener prioridad de salon");
+                    }
+                    salonModel.getAssign()[an.getPeriod().getId_period() - 1] = an;
+                    an.setSalon(salonModel.getId_salon());
+                    if (salonModel.getCapacity() < an.getCurse().getAssigned_students()) {
+                        an.setStatus(Status.OVERQUORUM);
+                        an.setMessage(an.getMessage() + " - Se supera la capacidad del salon");
+                    }
+                    break;
+                }
+            }
         }
     }
 
@@ -204,7 +338,7 @@ public class GeneratorModel {
             //status = 0;
             //messageResponse = "El catedratico ya da clases en el mismo periodo";
             an.setMessage("El catedratico " + an.getTeacher().getName_teacher() + " ya da clases en el mismo periodo");
-            an.setStatus(0);
+            an.setStatus(Status.TEACHEROUT);
         } else {
 //            for (PeriodDisponibility periodTemp : an.getTeacher().getMax_curses()) {
 //                if (!periodTemp.isTaken()) {
@@ -222,19 +356,25 @@ public class GeneratorModel {
             do {
                 Random ran = new Random(System.currentTimeMillis());
                 int sel = ran.nextInt(an.getTeacher().getMax_curses().size());
-                if (!an.getTeacher().getMax_curses().get(sel).isTaken()){
+                if (!an.getTeacher().getMax_curses().get(sel).isTaken()) {
                     an.getTeacher().getMax_curses().get(sel).setTaken(true);
                     period = an.getTeacher().getMax_curses().get(sel).getStart();
                     an.getTeacher().setCount_assigned(an.getTeacher().getCount_assigned() + 1);
-                    //status = 1;
-                    //messageResponse = "";
+                    an.setStatus(Status.OK);
                     an.setMessage("Asignado " + an.getTeacher().getName_teacher());
-                    an.setStatus(1);
                     findOut = true;
                 }
             } while (!findOut);
         }
+
         an.setPeriod(getPeriod(period));
+        period = an.getPeriod().getId_period();
+        AreaModel temp = semesters.get(an.getCurse().getArea_curse() - 1);
+        if (temp.getCount(an.getCurse().getSemester_curse(), period) > 0) {
+            an.setStatus(Status.OVERLAP);
+            an.setMessage("Traslape con otro curso del mismo semestre y area");
+        }
+        temp.sumCount(an.getCurse().getSemester_curse(), period);
     }
 
     public PeriodModel getPeriod(int start) {

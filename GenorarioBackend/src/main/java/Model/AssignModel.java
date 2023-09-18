@@ -14,6 +14,7 @@ public class AssignModel {
     private PeriodModel period;
     private CurseForWeight curse;
     private TeacherModel teacher;
+    private int salon;
     private int schedule;
     private int status;
     private String message;
@@ -30,6 +31,15 @@ public class AssignModel {
     public AssignModel() {
     }
 
+    public int getSalon() {
+        return salon;
+    }
+
+    public void setSalon(int salon) {
+        this.salon = salon;
+    }
+
+    
     public PeriodModel getPeriod() {
         return period;
     }

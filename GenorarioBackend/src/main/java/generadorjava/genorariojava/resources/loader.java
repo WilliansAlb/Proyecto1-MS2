@@ -11,10 +11,12 @@ import DAO.GenerateDAO;
 import DAO.ParameterDAO;
 import DAO.SalonDAO;
 import DAO.TeacherDAO;
+import DAO.WeightDAO;
 import JSONObjects.CurseJSON;
 import JSONObjects.DataItem;
 import JSONObjects.SalonJSON;
 import JSONObjects.TeacherJSON;
+import Model.GeneratorModel;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -150,7 +152,7 @@ public class loader extends HttpServlet {
                 }
                 responseJson.addProperty("message", "OK " + message);
                 con.closeConnection(cn);
-            } else if ("fileCurses".equals(item.getType())){
+            } else if ("fileCurses".equals(item.getType())) {
                 List<JsonObject> teachers = item.getData();
                 String message = "";
                 Connection cn = con.getConnection();
@@ -158,19 +160,19 @@ public class loader extends HttpServlet {
                 for (JsonObject element : teachers) {
                     CurseJSON curse = gson.fromJson(element, CurseJSON.class);
                     if (cd.insertCurse(cn, curse)) {
-                        if (curse.getCatedraticos()!=null){
+                        if (curse.getCatedraticos() != null) {
                             for (int i = 0; i < curse.getCatedraticos().size(); i++) {
-                                System.out.println("Estado "+cd.insertTeacherAssign(cn, curse.getCatedraticos().get(i).getAsJsonObject().get("id").getAsInt(), curse.getCodigo()));
+                                System.out.println("Estado " + cd.insertTeacherAssign(cn, curse.getCatedraticos().get(i).getAsJsonObject().get("id").getAsInt(), curse.getCodigo()));
                             }
                         }
-                        message += "\n " + curse.getAbreviatura()+ "  ✔";
+                        message += "\n " + curse.getAbreviatura() + "  ✔";
                     } else {
-                        message += "\n " + curse.getAbreviatura()+ "  X";
+                        message += "\n " + curse.getAbreviatura() + "  X";
                     }
                 }
                 responseJson.addProperty("message", "OK " + message);
                 con.closeConnection(cn);
-            } else if ("fileSalons".equals(item.getType())){
+            } else if ("fileSalons".equals(item.getType())) {
                 List<JsonObject> salons = item.getData();
                 String message = "";
                 Connection cn = con.getConnection();
@@ -178,43 +180,45 @@ public class loader extends HttpServlet {
                 for (JsonObject element : salons) {
                     SalonJSON salon = gson.fromJson(element, SalonJSON.class);
                     if (sd.insertSalon(cn, salon)) {
-                        if (salon.getCursos()!=null){
+                        if (salon.getCursos() != null) {
                             for (int i = 0; i < salon.getCursos().size(); i++) {
-                                System.out.println("Estado "+sd.insertSalonAssign(cn, salon.getId(), salon.getCursos().get(i).getAsJsonObject().get("codigo").getAsString()));
+                                System.out.println("Estado " + sd.insertSalonAssign(cn, salon.getId(), salon.getCursos().get(i).getAsJsonObject().get("codigo").getAsString()));
                             }
                         }
-                        message += "\n " + salon.getNombre()+ "  ✔";
+                        message += "\n " + salon.getNombre() + "  ✔";
                     } else {
-                        message += "\n " + salon.getNombre()+ "  X";
+                        message += "\n " + salon.getNombre() + "  X";
                     }
                 }
                 responseJson.addProperty("message", "OK " + message);
                 con.closeConnection(cn);
-            } else if ("parameter".equals(item.getType())){
+            } else if ("parameter".equals(item.getType())) {
                 List<JsonObject> salons = item.getData();
                 String message = "";
                 Connection cn = con.getConnection();
                 ParameterDAO insertion = new ParameterDAO();
                 int conteo = 1;
                 for (JsonObject element : salons) {
-                    if (insertion.updateFactor(cn,conteo,element.get("value").getAsInt())){
-                        message += " "+conteo+" ";
+                    if (insertion.updateFactor(cn, conteo, element.get("value").getAsInt())) {
+                        message += " " + conteo + " ";
                     } else {
-                        message += " X"+conteo+" ";
+                        message += " X" + conteo + " ";
                     }
                     conteo++;
                 }
                 responseJson.addProperty("message", "OK " + message);
                 con.closeConnection(cn);
-            } else if ("generate".equals(item.getType())){
+            } else if ("generate".equals(item.getType())) {
                 List<JsonObject> generate = item.getData();
                 String message = "";
                 Connection cn = con.getConnection();
                 GenerateDAO gn = new GenerateDAO();
+                GeneratorModel generator = new GeneratorModel();
                 for (JsonObject element : generate) {
-                    int id = gn.insertSchedule(cn,0.00, element.get("name").getAsString());
-                    if (id !=-1){
-                        
+                    int id = gn.insertSchedule(cn, 0.00, element.get("name").getAsString());
+                    if (id != -1) {
+                        generator.generateWeights(id);
+                        responseJson.addProperty("id", id);
                     } else {
                         message += " ERROR";
                     }

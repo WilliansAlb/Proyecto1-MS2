@@ -35,6 +35,46 @@ public class ParameterDAO {
         }
         return parameter;
     }
+    
+    public ArrayList<Parameter> getParametersUsed(Connection cn, int schedule) {
+        ArrayList<Parameter> parameter = new ArrayList<>();
+        try {
+            Statement statement = cn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM ParameterUsed WHERE id_schedule_used = "+schedule);
+            while (resultSet.next()) {
+                parameter.add(new Parameter(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3)));
+            }
+            return parameter;
+        } catch (SQLException ex) {
+            Logger.getLogger(AreaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return parameter;
+    }
+    
+    public boolean insertParameterUsed(Connection cn, Parameter parameter, int schedule) {
+        try {
+            String sql = "INSERT INTO ParameterUsed (id_parameter_used, id_schedule_used, value_used) VALUES (?,?,?)";
+            try ( // Crea una PreparedStatement para ejecutar la sentencia SQL
+                    PreparedStatement preparedStatement = cn.prepareStatement(sql)) {
+                preparedStatement.setInt(1, parameter.getId_parameter());
+                preparedStatement.setInt(2, schedule);
+                preparedStatement.setInt(3, parameter.getFactor());
+                // Ejecuta la inserción
+                int filasAfectadas = preparedStatement.executeUpdate();
+                if (filasAfectadas > 0) {
+                    System.out.println("Inserción exitosa.");
+                    return true;
+                } else {
+                    System.out.println("La inserción no se realizó correctamente.");
+                    return false;
+                }
+                // Cierra la conexión y la sentencia preparada
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ParameterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    };
 
     public boolean updateFactor(Connection cn, int id_parameter, int nuevoFactor) {
         try {
@@ -55,4 +95,6 @@ public class ParameterDAO {
             return false; // Devuelve false en caso de error
         }
     }
+    
+    
 }

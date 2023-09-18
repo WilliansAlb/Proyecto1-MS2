@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  * @author willi
  */
 public class SalonDAO {
-    
+
     public boolean insertSalon(Connection cn, SalonJSON salon) {
         try {
             String sql = "INSERT INTO Salon (id_salon, name_salon, capacity, area_salon) VALUES (?,?,?,?)";
@@ -49,7 +49,7 @@ public class SalonDAO {
         }
         return false;
     }
-    
+
     public boolean insertSalonAssign(Connection cn, int id_salon, String code_curse) {
         try {
             String sql = "INSERT INTO SalonAssigned (salon_assigned, curse_assigned) VALUES (?,?)";
@@ -73,14 +73,14 @@ public class SalonDAO {
         }
         return false;
     }
-    
-     public ArrayList<SalonJSON> getSalonList(Connection cn) {
+
+    public ArrayList<SalonJSON> getSalonList(Connection cn) {
         ArrayList<SalonJSON> areas = new ArrayList<>();
         try {
             Statement statement = cn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT id_salon, name_salon, capacity, area_salon FROM salon");
             while (resultSet.next()) {
-                areas.add(new SalonJSON(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3), resultSet.getInt(4),null));
+                areas.add(new SalonJSON(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3), resultSet.getInt(4), null));
             }
             return areas;
         } catch (SQLException ex) {
@@ -88,8 +88,8 @@ public class SalonDAO {
         }
         return areas;
     }
-     
-     public ArrayList<SalonModel> getSalonListModel(Connection cn) {
+
+    public ArrayList<SalonModel> getSalonListModel(Connection cn) {
         ArrayList<SalonModel> areas = new ArrayList<>();
         try {
             Statement statement = cn.createStatement();
@@ -103,8 +103,8 @@ public class SalonDAO {
         }
         return areas;
     }
-     
-     public ArrayList<TotalAreaSalon> getTotalSalons(Connection cn){
+
+    public ArrayList<TotalAreaSalon> getTotalSalons(Connection cn) {
         ArrayList<TotalAreaSalon> total = new ArrayList<>();
         try {
             Statement statement = cn.createStatement();
@@ -118,4 +118,6 @@ public class SalonDAO {
         }
         return total;
     }
+
+    
 }

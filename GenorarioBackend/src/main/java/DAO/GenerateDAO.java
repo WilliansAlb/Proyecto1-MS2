@@ -32,7 +32,7 @@ public class GenerateDAO {
             name_schedule = "HORARIO "+fechaConFormato;
         }
         try {
-            String sql = "INSERT INTO GeneratedSchedule (date_schedule, efficiency_schedule, name_schedule) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO GeneratedSchedule (date_schedule, efficiency_schedule, name_schedule) VALUES (?,?,?)";
             try ( // Crea una PreparedStatement para ejecutar la sentencia SQL
                     PreparedStatement preparedStatement = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 preparedStatement.setString(1, fechaConFormato);
@@ -55,5 +55,26 @@ public class GenerateDAO {
             Logger.getLogger(CurseDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return generate_key;
+    }
+    
+    public void updateEfficiency(Connection cn, int id_schedule, double efficiency_schedule) {
+        String sql = "UPDATE generatedSchedule SET efficiency_schedule = ? WHERE id_schedule = ?";
+
+        try (PreparedStatement preparedStatement = cn.prepareStatement(sql)) {
+
+            preparedStatement.setDouble(1, efficiency_schedule);
+            preparedStatement.setInt(2, id_schedule);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Efficiency updated successfully.");
+            } else {
+                System.out.println("No rows were updated. ID not found.");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error updating efficiency: " + e.getMessage());
+        }
     }
 }
